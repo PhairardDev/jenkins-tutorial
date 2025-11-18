@@ -20,7 +20,8 @@ export default function Page() {
     async function getAttractions() {
       try {
         const apiHost = process.env.NEXT_PUBLIC_API_URL;
-        const res = await fetch(`${apiHost}/attractions`, { cache: "no-store" });
+        const url = new URL("/attractions", apiHost).toString();
+        const res = await fetch(url);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setRows(data);
