@@ -23,7 +23,9 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
       UPLOAD_LIMIT: 256M
-    ports:
+    # ports:
+    #   - "${PHPMYADMIN_PORT:-8888}:80"
+    expose:
       - "${PHPMYADMIN_PORT:-8888}:80"
     depends_on: [mysql]
     networks: [stack]
@@ -40,8 +42,10 @@ services:
       DB_USER: ${MYSQL_USER}
       DB_PASSWORD: ${MYSQL_PASSWORD}
       TZ: Asia/Bangkok
-    ports:
-      - "${API_PORT:-3001}:3001"
+    # ports:
+    #   - "${API_PORT:-3001}:3001"
+    expose:
+      - "3001"
     depends_on: [mysql]
     networks: [stack]
 
@@ -53,8 +57,10 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-    ports:
-      - "${FRONTEND_PORT:-3000}:3000"
+    # ports:
+    #   - "${FRONTEND_PORT:-3000}:3000"
+    expose:
+      - "3000"
     depends_on: [api]
     networks: [stack]
 

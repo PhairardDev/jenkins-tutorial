@@ -20,7 +20,7 @@ pipeline {
         )
         string(
             name: 'API_HOST',
-            defaultValue: 'http://54.254.234.136:3001',
+            defaultValue: 'https://apidemojenks.9liga.com/',
             description: 'API host URL for frontend to connect to.'
         )
     }
