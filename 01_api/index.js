@@ -3,10 +3,17 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 require('dotenv').config({ path: '.env.local' });
 
+
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+// อนุญาตให้ domain เข้าถึงข้อมูลได้
+const corsOptions = {
+    origin: 'https://apidemojenks.9liga.com',
+    credentials: true, // ถ้ามีการส่ง cookie/session
+};
+app.use(cors(corsOptions));
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
