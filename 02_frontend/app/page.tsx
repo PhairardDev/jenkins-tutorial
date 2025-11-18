@@ -2,10 +2,19 @@
 
 import { useState, useEffect } from "react";
 
+interface Attraction {
+  id: number;
+  name: string;
+  detail?: string;
+  latitude: number;
+  longitude: number;
+  coverimage?: string;
+}
+
 export default function Page() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function getAttractions() {
@@ -15,8 +24,12 @@ export default function Page() {
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setRows(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
+        }
       } finally {
         setLoading(false);
       }
@@ -52,8 +65,8 @@ export default function Page() {
         <div className="empty">No attractions found.</div>
       ) : (
         <section className="grid" aria-live="polite">
-          {rows.map((x: any) => (
-            <article key={x.id} className="card" tabIndex={0}>
+          {rows.map((x: Attraction) => (
+            <article key={x.id} className="card">
               {x.coverimage && (
                 <div className="media">
                   <img
