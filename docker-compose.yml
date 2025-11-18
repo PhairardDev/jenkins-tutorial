@@ -23,6 +23,7 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
       UPLOAD_LIMIT: 256M
+      PMA_ABSOLUTE_URI: https://demojenks.9liga.com/phpmyadmin/
     ports:
       - "${PHPMYADMIN_PORT:-8888}:80"
     depends_on: [mysql]

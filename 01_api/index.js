@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // อนุญาตให้ domain เข้าถึงข้อมูลได้
 const corsOptions = {
-    origin: 'https://apidemojenks.9liga.com',
+    origin: 'https://demojenks.9liga.com',
     credentials: true, // ถ้ามีการส่ง cookie/session
 };
 app.use(cors(corsOptions));
