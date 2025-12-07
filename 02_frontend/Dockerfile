@@ -3,6 +3,7 @@ FROM node:20-alpine AS builder
 ARG API_HOST=http://localhost:3001
 WORKDIR /app
 COPY package*.json ./
+RUN apk add --no-cache curl
 RUN npm ci && npm cache clean --force
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1 \
